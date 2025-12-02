@@ -10,6 +10,7 @@ declare(strict_types=1);
  * Dependencies are wired via PHP-DI container.
  */
 
+use DataFeedImporter\Command\ImportCommand;
 use DI\ContainerBuilder;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Dotenv\Dotenv;
@@ -30,8 +31,7 @@ $container = $containerBuilder->build();
 // Create and run application
 $application = new Application('Data Feed Importer', '1.0.0');
 
-// Commands will be registered here in Phase 6
-// $application->add($container->get(ImportCommand::class));
+$application->add($container->get(ImportCommand::class));
 
 $application->run();
 

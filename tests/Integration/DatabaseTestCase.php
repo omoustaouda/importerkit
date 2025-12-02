@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  * Base class for integration tests that need a clean MySQL schema.
  *
  * - Runs every SQL migration before the first test case
- * - Truncates the `items` table between tests to keep assertions deterministic
+ * - Truncates the tables between tests to keep assertions deterministic
  * - Reuses a single Doctrine connection for speed
  */
 abstract class DatabaseTestCase extends TestCase
@@ -90,7 +90,7 @@ abstract class DatabaseTestCase extends TestCase
         try {
             self::connection()->executeStatement('TRUNCATE TABLE items');
         } catch (\Throwable $exception) {
-            throw new \RuntimeException('Unable to truncate items table. Did migrations run?', 0, $exception);
+            throw new \RuntimeException('Unable to truncate tables. Did migrations run?', 0, $exception);
         }
     }
 }
