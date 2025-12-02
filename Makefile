@@ -1,51 +1,34 @@
-.PHONY: help install test test-unit test-integration docker-build docker-up docker-down docker-test import shell
+.PHONY: help composer-install docker-up docker-down test shell import
 
 # Default target
 help:
 	@echo "Data Feed Importer - Available commands:"
 	@echo ""
-	@echo "  make install          - Install dependencies"
-	@echo "  make test             - Run all tests"
-	@echo "  make test-unit        - Run unit tests only"
-	@echo "  make test-integration - Run integration tests only"
-	@echo ""
-	@echo "Docker commands:"
+	@echo "  make composer-install - Install/update dependencies inside Docker"
 	@echo "  make docker-up        - Start services"
 	@echo "  make docker-down      - Stop services"
-	@echo "  make docker-test      - Run tests in Docker"
+	@echo "  make test             - Run tests inside Docker"
 	@echo "  make shell            - Open shell in app container"
 	@echo ""
-	@echo "Import command:"
-	@echo "  make import FILE=path/to/file.csv"
+	@echo "Import:"
+	@echo "  make import FILE=/path/to/feed.csv"
 
-# Local development
-install:
-	composer install
+composer-install: docker-up
+	docker compose run --rm --entrypoint composer app install
 
-test:
-	php vendor/bin/phpunit
-
-test-unit:
-	php vendor/bin/phpunit --testsuite=unit
-
-test-integration:
-	php vendor/bin/phpunit --testsuite=integration
-
-# Docker commands
 docker-up:
 	docker compose up -d mysql
 
 docker-down:
 	docker compose down
 
-docker-test:
+test: composer-install
 	docker compose run --rm test
 
 shell:
 	docker compose run --rm --entrypoint /bin/bash app
 
-# Import command
-import:
+import: composer-install
 ifndef FILE
 	$(error FILE is required. Usage: make import FILE=path/to/file.csv)
 endif
