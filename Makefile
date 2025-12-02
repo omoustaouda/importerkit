@@ -1,4 +1,4 @@
-.PHONY: help composer-install docker-up docker-build docker-down test shell import demo
+.PHONY: help composer-install docker-up docker-build docker-down test shell import demo ensure-env
 
 # Default target
 help:
@@ -14,13 +14,17 @@ help:
 	@echo "Import:"
 	@echo "  make import FILE=/path/to/feed.csv"
 
+# Needed before docker compose reads variables
+ensure-env:
+	@test -f .env || cp env.example .env
+
 composer-install: docker-up docker-build
 	docker compose run --rm --entrypoint composer app install
-docker-build:
+
+docker-build: ensure-env
 	docker compose build app
 
-
-docker-up:
+docker-up: ensure-env
 	docker compose up -d mysql
 
 docker-down:

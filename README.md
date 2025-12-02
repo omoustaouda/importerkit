@@ -110,3 +110,20 @@ make docker-down
 
 - Docker and Docker Compose
 - No local PHP installation needed — everything runs in containers
+
+## Troubleshooting
+
+### MySQL "Access denied" error
+
+If you see an error like:
+
+```
+SQLSTATE[HY000] [1045] Access denied for user 'app'@'...' (using password: YES)
+```
+
+This usually means the MySQL volume has stale credentials from a previous run. Fix it by removing the volumes and restarting:
+
+```bash
+docker compose down -v
+make demo
+```
