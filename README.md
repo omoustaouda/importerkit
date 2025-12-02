@@ -2,6 +2,8 @@
 
 A scalable, production-ready CSV data import system built with PHP 8.4, compatible with PHP 8.5.
 
+![Demo run](docs/screenshot-demo_run.png)
+
 ## Features
 
 - **Batch Processing** — Memory-efficient handling of large files via configurable batch sizes
@@ -15,9 +17,6 @@ A scalable, production-ready CSV data import system built with PHP 8.4, compatib
 ## Quick Start
 
 ```bash
-# Install dependencies (runs inside Docker)
-make composer-install
-
 # Run the test suite
 make test
 
@@ -25,7 +24,7 @@ make test
 make import FILE=/data/feed.csv
 
 # Or with options
-docker compose run --rm app import:feed /data/feed.csv --batch-size=200 --dry-run
+docker compose run --rm app import:feed /data/feed.csv --batch-size=200 --dry-run --skip-gtin-validation
 
 # Run the sample demo (skips GTIN checksum for provided feed.csv)
 make demo
@@ -111,5 +110,3 @@ make docker-down
 
 - Docker and Docker Compose
 - No local PHP installation needed — everything runs in containers
-
-
