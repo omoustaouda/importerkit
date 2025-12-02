@@ -1,6 +1,6 @@
 # Data Feed Importer
 
-A scalable, production-ready CSV data import system built with PHP 8.4.
+A scalable, production-ready CSV data import system built with PHP 8.4, compatible with PHP 8.5.
 
 ## Features
 
