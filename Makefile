@@ -1,4 +1,4 @@
-.PHONY: help composer-install docker-up docker-down test shell import demo
+.PHONY: help composer-install docker-up docker-build docker-down test shell import demo
 
 # Default target
 help:
@@ -14,8 +14,11 @@ help:
 	@echo "Import:"
 	@echo "  make import FILE=/path/to/feed.csv"
 
-composer-install: docker-up
+composer-install: docker-up docker-build
 	docker compose run --rm --entrypoint composer app install
+docker-build:
+	docker compose build app
+
 
 docker-up:
 	docker compose up -d mysql
