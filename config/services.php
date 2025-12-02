@@ -16,8 +16,6 @@ use Monolog\Level;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
-use function DI\create;
-use function DI\get;
 use function DI\factory;
 
 return [
@@ -25,7 +23,7 @@ return [
     Connection::class => factory(function () {
         return DriverManager::getConnection([
             'driver' => 'pdo_mysql',
-            'host' => $_ENV['DB_HOST'] ?? 'localhost',
+            'host' => $_ENV['DB_HOST'] ?? 'db',
             'port' => (int) ($_ENV['DB_PORT'] ?? 3306),
             'dbname' => $_ENV['DB_DATABASE'] ?? 'data_feed',
             'user' => $_ENV['DB_USERNAME'] ?? 'app',
@@ -51,11 +49,5 @@ return [
         return $logger;
     }),
 
-    // Domain services will be added in subsequent phases:
-    // - ItemMapper
-    // - ItemValidator
-    // - ItemRepository
-    // - DataImporter
-    // - ImportCommand
 ];
 
