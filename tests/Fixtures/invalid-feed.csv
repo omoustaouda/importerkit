@@ -1,0 +1,5 @@
+gtin,language,title,picture,description,price,stock
+123,de,Invalid GTIN,http://example.com/img.jpg,Bad row,19.99,5
+4006381333931,xx,Invalid Language,http://example.com/img.jpg,Wrong language,29.99,10
+4006381333931,en,Valid,http://example.com/img.jpg,Good row,29.99,10
+

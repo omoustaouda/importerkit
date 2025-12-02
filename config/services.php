@@ -12,6 +12,7 @@ declare(strict_types=1);
 use DataFeedImporter\Domain\ItemValidator;
 use DataFeedImporter\Mapper\ItemMapper;
 use DataFeedImporter\Repository\ItemRepository;
+use DataFeedImporter\Service\DataImporter;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Monolog\Handler\StreamHandler;
@@ -60,6 +61,15 @@ return [
     ItemRepository::class => factory(
         fn (ContainerInterface $container): ItemRepository => new ItemRepository(
             $container->get(Connection::class),
+        )
+    ),
+
+    DataImporter::class => factory(
+        fn (ContainerInterface $container): DataImporter => new DataImporter(
+            mapper: $container->get(ItemMapper::class),
+            validator: $container->get(ItemValidator::class),
+            repository: $container->get(ItemRepository::class),
+            logger: $container->get(LoggerInterface::class),
         )
     ),
 ];
