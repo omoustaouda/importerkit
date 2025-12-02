@@ -16,9 +16,6 @@ wip_docs/
 .phpunit.cache/
 .phpunit.result.cache
 
-# Composer
-composer.lock
-
 # OS
 .DS_Store
 Thumbs.db
