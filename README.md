@@ -6,6 +6,7 @@ A scalable, production-ready CSV data import system built with PHP 8.4.
 
 - **Batch Processing** — Memory-efficient handling of large files via configurable batch sizes
 - **GTIN Validation** — Full GTIN-13 checksum verification plus format checks for GTIN-8/12/14
+- **GTIN Lenient Mode** — Optional flag to treat checksum issues as warnings for legacy/demo feeds
 - **Financial Precision** — Prices stored as DECIMAL, normalized in the mapper layer
 - **Idempotent Imports** — Safe to re-run; uses upsert strategy keyed on GTIN
 - **Dry-Run Mode** — Validate data without touching the database
@@ -25,6 +26,9 @@ make import FILE=/data/feed.csv
 
 # Or with options
 docker compose run --rm app import:feed /data/feed.csv --batch-size=200 --dry-run
+
+# Run the sample demo (skips GTIN checksum for provided feed.csv)
+make demo
 ```
 
 ## CLI Usage
@@ -38,6 +42,8 @@ Arguments:
 Options:
   -b, --batch-size=100  Number of records to process per batch
       --dry-run         Validate data without inserting into database
+      --skip-gtin-validation
+                        Treat GTIN checksum errors as warnings (useful for demo data)
   -v                    Verbose output (shows validation errors)
 ```
 

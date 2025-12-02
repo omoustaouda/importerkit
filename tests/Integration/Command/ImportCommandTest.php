@@ -41,6 +41,18 @@ final class ImportCommandTest extends DatabaseTestCase
         self::assertSame(0, $this->countItems());
     }
 
+    public function testSkipGtinValidationOptionImportsRows(): void
+    {
+        $tester = new CommandTester($this->createCommand());
+        $statusCode = $tester->execute([
+            'file' => $this->fixture('invalid-gtin-only.csv'),
+            '--skip-gtin-validation' => true,
+        ]);
+
+        self::assertSame(Command::SUCCESS, $statusCode);
+        self::assertSame(2, $this->countItems());
+    }
+
     public function testMissingFileFails(): void
     {
         $tester = new CommandTester($this->createCommand());

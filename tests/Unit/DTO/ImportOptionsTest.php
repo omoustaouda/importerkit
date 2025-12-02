@@ -15,14 +15,16 @@ final class ImportOptionsTest extends TestCase
 
         self::assertSame(100, $options->batchSize);
         self::assertFalse($options->dryRun);
+        self::assertFalse($options->skipGtinValidation);
     }
 
     public function testCustomValues(): void
     {
-        $options = new ImportOptions(batchSize: 250, dryRun: true);
+        $options = new ImportOptions(batchSize: 250, dryRun: true, skipGtinValidation: true);
 
         self::assertSame(250, $options->batchSize);
         self::assertTrue($options->dryRun);
+        self::assertTrue($options->skipGtinValidation);
     }
 }
 

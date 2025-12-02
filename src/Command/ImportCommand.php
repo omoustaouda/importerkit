@@ -49,6 +49,12 @@ final class ImportCommand extends Command
                 null,
                 InputOption::VALUE_NONE,
                 'Validate data without persisting it',
+            )
+            ->addOption(
+                'skip-gtin-validation',
+                null,
+                InputOption::VALUE_NONE,
+                'Treat GTIN checksum errors as warnings (useful for demo feeds)',
             );
     }
 
@@ -69,16 +75,22 @@ final class ImportCommand extends Command
 
         $batchSize = max(1, (int) $input->getOption('batch-size'));
         $dryRun = (bool) $input->getOption('dry-run');
+        $skipGtinValidation = (bool) $input->getOption('skip-gtin-validation');
 
         $io->title('Data Feed Importer');
         $io->text([
             sprintf('File: %s', $filePath),
             sprintf('Batch size: %d', $batchSize),
             sprintf('Mode: %s', $dryRun ? 'DRY RUN' : 'LIVE'),
+            sprintf('GTIN validation: %s', $skipGtinValidation ? 'LENIENT' : 'STRICT'),
         ]);
 
         $reader = new CsvDataReader($filePath);
-        $options = new ImportOptions(batchSize: $batchSize, dryRun: $dryRun);
+        $options = new ImportOptions(
+            batchSize: $batchSize,
+            dryRun: $dryRun,
+            skipGtinValidation: $skipGtinValidation,
+        );
         $estimatedCount = $reader->getEstimatedCount();
 
         $progressBar = null;

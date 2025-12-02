@@ -10,6 +10,7 @@ use DataFeedImporter\Domain\ItemValidator;
 use DataFeedImporter\DTO\ImportOptions;
 use DataFeedImporter\DTO\ImportResult;
 use DataFeedImporter\Enum\ImportStatus;
+use DataFeedImporter\Enum\ValidationError;
 use DataFeedImporter\Exception\MappingException;
 use DataFeedImporter\Mapper\ItemMapper;
 use DataFeedImporter\Repository\ItemRepository;
@@ -49,6 +50,8 @@ final class DataImporter
 
         $batch = [];
         $estimatedTotal = $reader->getEstimatedCount();
+        $gtinSkipCount = 0;
+        $gtinSkipSamples = [];
 
         foreach ($reader->read() as $lineNumber => $row) {
             $stats['processed']++;
@@ -61,9 +64,31 @@ final class DataImporter
             }
 
             $validation = $this->validator->validate($item);
+            $errors = $validation->errors;
+            $isValid = $validation->isValid;
 
-            if (!$validation->isValid) {
-                $this->recordError($stats, $lineNumber, $validation->getErrorMessages());
+            if ($options->skipGtinValidation && $errors !== []) {
+                $filteredErrors = array_values(array_filter(
+                    $errors,
+                    static fn (ValidationError $error): bool => $error !== ValidationError::InvalidGtin,
+                ));
+
+                if (count($filteredErrors) !== count($errors)) {
+                    $gtinSkipCount++;
+                    if (count($gtinSkipSamples) < 5) {
+                        $gtinSkipSamples[] = [
+                            'line' => $lineNumber,
+                            'gtin' => $item->gtin,
+                        ];
+                    }
+                }
+
+                $errors = $filteredErrors;
+                $isValid = $errors === [];
+            }
+
+            if (!$isValid) {
+                $this->recordError($stats, $lineNumber, $this->formatValidationMessages($errors));
                 continue;
             }
 
@@ -81,6 +106,13 @@ final class DataImporter
 
         if ($batch !== []) {
             $stats['imported'] += $this->processBatch($batch, $options->dryRun);
+        }
+
+        if ($options->skipGtinValidation && $gtinSkipCount > 0) {
+            $this->logger->notice('GTIN validation skipped for some rows', [
+                'rows' => $gtinSkipCount,
+                'samples' => $gtinSkipSamples,
+            ]);
         }
 
         $status = $this->determineStatus($stats);
@@ -138,6 +170,18 @@ final class DataImporter
             'line' => $lineNumber,
             'errors' => $messages,
         ]);
+    }
+
+    /**
+     * @param array<ValidationError> $errors
+     * @return array<string>
+     */
+    private function formatValidationMessages(array $errors): array
+    {
+        return array_map(
+            static fn (ValidationError $error): string => $error->getMessage(),
+            $errors,
+        );
     }
 }
 

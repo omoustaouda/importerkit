@@ -1,0 +1,4 @@
+gtin,language,title,picture,description,price,stock
+1234567890123,en,Broken GTIN One,https://example.com/one.jpg,Checksum mismatch item,19.99,10
+1111111111111,de,Broken GTIN Two,https://example.com/two.jpg,Second checksum mismatch,39.99,5
+

@@ -166,7 +166,26 @@ ON DUPLICATE KEY UPDATE
 
 ---
 
-## 10. PHP 8.4
+## 10. GTIN Lenient Mode
+
+**Decision:** Add a `--skip-gtin-validation` flag that downgrades checksum failures to warnings.
+
+**Context:** Real-life feeds (including the provided demo `feed.csv`) sometimes contain placeholder GTINs that fail checksum validation even though the rest of the row is valid.
+
+**Rationale:**
+- Keeps the default path strict — no flag, no import of invalid GTINs
+- Helps demo data and legacy catalogs load without hand-editing thousands of rows
+- Still runs every other validation rule (price, language, URL, stock, title)
+- Emits a notice-level log per row so operators know a lenient import happened
+
+**Safety Measures:**
+- Flag must be explicitly set; there is no implicit auto-detect
+- Stats still show how many rows were processed, so operators can compare strict vs lenient runs
+- The demo docker service (`make demo`) runs with this flag enabled to showcase a successful import
+
+---
+
+## 11. PHP 8.4
 
 **Decision:** Use PHP 8.4 over PHP 8.5.
 
@@ -217,4 +236,8 @@ This architecture prioritizes:
 5. **Idempotency** — Imports are safe to retry, resume, or re-run
 
 The goal is a system that's simple enough to reason about, robust enough to handle real-world data, and clean enough to extend when requirements change.
+
+**Why `DataImporter`, not `ItemImporter`?**
+
+The service coordinates a generic import pipeline (Reader → Mapper → Validator → Repository). Today those collaborators handle `Item` entities, but nothing in `DataImporter` ties it to that concept. Keeping the name generic matches the architecture doc and leaves room for plugging in a different mapper/validator pair (for example, importing availability feeds) without renaming the orchestration layer.
 

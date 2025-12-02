@@ -9,6 +9,7 @@ final readonly class ImportOptions
     public function __construct(
         public int $batchSize = 100,
         public bool $dryRun = false,
+        public bool $skipGtinValidation = false,
     ) {
     }
 }
