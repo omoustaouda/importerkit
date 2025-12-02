@@ -1,0 +1,32 @@
+# Dependencies
+/vendor/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+wip_docs/
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+
+# Composer
+composer.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Data files (keep structure, ignore content)
+/data/*
+!/data/.gitkeep
+

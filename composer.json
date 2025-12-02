@@ -1,0 +1,45 @@
+{
+    "name": "omoustaouda/data-feed-importer",
+    "description": "Scalable CSV data feed importer for PHP 8.4",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": "^8.4",
+        "doctrine/dbal": "^4.4",
+        "league/csv": "^9.27",
+        "monolog/monolog": "^3.9",
+        "php-di/php-di": "^7.1",
+        "symfony/console": "^8.0",
+        "symfony/dotenv": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DataFeedImporter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DataFeedImporter\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@php -r \"file_exists('.env') || copy('env.example', '.env');\""
+        ],
+        "post-update-cmd": [
+            "@php -r \"file_exists('.env') || copy('env.example', '.env');\""
+        ],
+        "test": "phpunit",
+        "test:unit": "phpunit --testsuite=unit",
+        "test:integration": "phpunit --testsuite=integration"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.4"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.4"
+    }
+}
