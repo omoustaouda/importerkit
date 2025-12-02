@@ -9,11 +9,15 @@ declare(strict_types=1);
  * Keep it simple: one entry per service, clear dependencies.
  */
 
+use DataFeedImporter\Domain\ItemValidator;
+use DataFeedImporter\Mapper\ItemMapper;
+use DataFeedImporter\Repository\ItemRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use Monolog\Logger;
+use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 use function DI\factory;
@@ -49,5 +53,14 @@ return [
         return $logger;
     }),
 
+    ItemMapper::class => factory(fn () => new ItemMapper()),
+
+    ItemValidator::class => factory(fn () => new ItemValidator()),
+
+    ItemRepository::class => factory(
+        fn (ContainerInterface $container): ItemRepository => new ItemRepository(
+            $container->get(Connection::class),
+        )
+    ),
 ];
 

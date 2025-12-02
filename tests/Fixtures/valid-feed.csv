@@ -1,0 +1,4 @@
+gtin,language,title,picture,description,price,stock
+4006381333931,en,Valid Product,http://example.com/img.jpg,Description,19.99,10
+12345670,de,Second,http://example.com/2.jpg,Another,5.5,2
+

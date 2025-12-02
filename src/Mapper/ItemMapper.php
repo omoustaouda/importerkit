@@ -7,6 +7,15 @@ namespace DataFeedImporter\Mapper;
 use DataFeedImporter\Domain\Item;
 use DataFeedImporter\Exception\MappingException;
 
+/**
+ * Maps raw arrays from the DataReader layer into Item domain objects.
+ *
+ * This class owns REQUIRED_COLUMNS and all string/price normalization rules
+ * so the reader stays generic and the validator focuses solely on business
+ * constraints. Keeping mapping logic centralized makes new readers (JSON/XML)
+ * trivial: as long as they produce the same associative arrays we can reuse
+ * this mapper.
+ */
 final class ItemMapper
 {
     /**
@@ -23,7 +32,9 @@ final class ItemMapper
     ];
 
     /**
-     * @param array<string, string> $data
+     * @param array<string, string> $data Raw values from DataReader
+     *
+     * @throws MappingException When required columns are missing
      */
     public function map(array $data): Item
     {
@@ -82,6 +93,11 @@ final class ItemMapper
         }
     }
 
+    /**
+     * Mapper is the only place that touches price strings before persistence.
+     * We normalize to "12.34" format so financial precision is preserved up
+     * until Doctrine stores the DECIMAL value.
+     */
     private function normalizePrice(string $price): string
     {
         $value = $this->trim($price);

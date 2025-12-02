@@ -8,6 +8,13 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Base class for integration tests that need a clean MySQL schema.
+ *
+ * - Runs every SQL migration before the first test case
+ * - Truncates the `items` table between tests to keep assertions deterministic
+ * - Reuses a single Doctrine connection for speed
+ */
 abstract class DatabaseTestCase extends TestCase
 {
     private const string MIGRATIONS_DIR = __DIR__ . '/../../database/migrations';
