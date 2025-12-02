@@ -1,0 +1,1 @@
+- [ ] Move Dockerfile into a specific directory, to keep all Docker related stuff in one place and have the building context limited and light. (PRIO: low)
