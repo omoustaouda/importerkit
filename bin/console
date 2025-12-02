@@ -31,7 +31,7 @@ $container = $containerBuilder->build();
 // Create and run application
 $application = new Application('Data Feed Importer', '1.0.0');
 
-$application->add($container->get(ImportCommand::class));
+$application->addCommand($container->get(ImportCommand::class));
 
 $application->run();
 

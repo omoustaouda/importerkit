@@ -9,6 +9,7 @@ declare(strict_types=1);
  * Keep it simple: one entry per service, clear dependencies.
  */
 
+use DataFeedImporter\Command\ImportCommand;
 use DataFeedImporter\Domain\ItemValidator;
 use DataFeedImporter\Mapper\ItemMapper;
 use DataFeedImporter\Repository\ItemRepository;
@@ -70,6 +71,12 @@ return [
             validator: $container->get(ItemValidator::class),
             repository: $container->get(ItemRepository::class),
             logger: $container->get(LoggerInterface::class),
+        )
+    ),
+
+    ImportCommand::class => factory(
+        fn (ContainerInterface $container): ImportCommand => new ImportCommand(
+            $container->get(DataImporter::class),
         )
     ),
 ];

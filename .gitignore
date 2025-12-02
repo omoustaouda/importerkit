@@ -26,7 +26,7 @@ Thumbs.db
 # Logs
 *.log
 
-# Data files (keep structure, ignore content)
+# Data files (keep structure, ignore user content)
 /data/*
 !/data/.gitkeep
 

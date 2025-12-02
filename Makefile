@@ -1,4 +1,4 @@
-.PHONY: help composer-install docker-up docker-down test shell import
+.PHONY: help composer-install docker-up docker-down test shell import demo
 
 # Default target
 help:
@@ -8,6 +8,7 @@ help:
 	@echo "  make docker-up        - Start services"
 	@echo "  make docker-down      - Stop services"
 	@echo "  make test             - Run tests inside Docker"
+	@echo "  make demo             - Run demo import with sample data (GTIN lenient)"
 	@echo "  make shell            - Open shell in app container"
 	@echo ""
 	@echo "Import:"
@@ -33,3 +34,6 @@ ifndef FILE
 	$(error FILE is required. Usage: make import FILE=path/to/file.csv)
 endif
 	docker compose run --rm app import:feed $(FILE)
+
+demo: composer-install
+	docker compose run --rm demo

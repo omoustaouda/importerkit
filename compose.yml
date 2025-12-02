@@ -69,6 +69,32 @@ services:
       timeout: 5s
       retries: 10
 
+  # Demo service: runs a sample import to show the tool in action (GTIN lenient mode)
+  demo:
+    build: .
+    image: data-feed-importer-php
+    working_dir: /app
+    volumes:
+      - .:/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    entrypoint:
+      [
+        "php",
+        "bin/console",
+        "import:feed",
+        "/app/data/feed.csv",
+        "--skip-gtin-validation",
+        "-v",
+      ]
+
 volumes:
   mysql_data:
 
