@@ -4,26 +4,35 @@
 # Environment
 .env
 .env.local
+.env.*.local
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
-wip_docs/
-
-# PHPUnit
-.phpunit.cache/
-.phpunit.result.cache
+*~
 
 # OS
 .DS_Store
 Thumbs.db
 
+# Build/Cache
+/var/
+/cache/
+*.cache
+
 # Logs
+/logs/
 *.log
 
-# Data files (keep structure, ignore user content)
-/data/*
-!/data/.gitkeep
+# PHPUnit
+.phpunit.result.cache
+.phpunit.cache/
+/coverage/
 
+# PHPStan
+/phpstan/
+
+# Composer
+composer.lock

@@ -16,7 +16,7 @@ help:
 
 # Needed before docker compose reads variables
 ensure-env:
-	@test -f .env || cp env.example .env
+	@test -f .env || cp .env.example .env
 
 composer-install: docker-up docker-build
 	docker compose run --rm --entrypoint composer app install

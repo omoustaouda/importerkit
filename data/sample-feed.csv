@@ -1,0 +1,7 @@
+gtin,language,title,picture,description,price,stock
+4006381333931,de,Beispielprodukt Eins,https://example.com/images/product1.jpg,Ein hochwertiges Beispielprodukt für Demonstrationszwecke,29.99,150
+4006381333948,de,Beispielprodukt Zwei,https://example.com/images/product2.jpg,Weiteres Beispielprodukt mit ausführlicher Beschreibung,49.50,75
+4006381333955,en,Sample Product Three,https://example.com/images/product3.jpg,English language product for testing,19.00,200
+4006381333962,de,Beispielprodukt Vier,https://example.com/images/product4.jpg,,99.99,0
+4006381333979,en,Sample Product Five,https://example.com/images/product5.jpg,Another test product,738.70,42
+
