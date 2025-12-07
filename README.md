@@ -1,5 +1,6 @@
 # ImporterKit
 
+[![Tests](https://github.com/omoustaouda/importerkit/actions/workflows/tests.yml/badge.svg)](https://github.com/omoustaouda/importerkit/actions/workflows/tests.yml)
 [![PHP 8.4](https://img.shields.io/badge/PHP-8.4-blue.svg)](https://php.net)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
