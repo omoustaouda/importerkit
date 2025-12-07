@@ -90,7 +90,7 @@ services:
         "php",
         "bin/console",
         "import:feed",
-        "/app/data/feed.csv",
+        "/app/data/sample-feed.csv",
         "--skip-gtin-validation",
         "-v",
       ]

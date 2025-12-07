@@ -26,10 +26,10 @@ cd importerkit
 make test
 
 # Import a CSV file
-make import FILE=/data/feed.csv
+make import FILE=/data/sample-feed.csv
 
 # Or with options
-docker compose run --rm app import:feed /data/feed.csv --batch-size=200 --dry-run
+docker compose run --rm app import:feed /data/sample-feed.csv --batch-size=200 --dry-run
 ```
 
 ## With Docker
