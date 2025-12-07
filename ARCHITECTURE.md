@@ -1,6 +1,6 @@
-# Architectural Decisions
+# ImporterKit Architecture
 
-This document explains the key design choices made in the Data Feed Importer, focusing on *why* each decision was taken rather than just *what* was implemented.
+This document explains the key design choices made in ImporterKit, focusing on *why* each decision was taken rather than just *what* was implemented.
 
 ---
 
@@ -170,7 +170,7 @@ ON DUPLICATE KEY UPDATE
 
 **Decision:** Add a `--skip-gtin-validation` flag that downgrades checksum failures to warnings.
 
-**Context:** Real-life feeds (including the provided demo `feed.csv`) sometimes contain placeholder GTINs that fail checksum validation even though the rest of the row is valid.
+**Context:** Real-life feeds sometimes contain placeholder GTINs that fail checksum validation even though the rest of the row is valid.
 
 **Rationale:**
 - Keeps the default path strict — no flag, no import of invalid GTINs
@@ -208,7 +208,7 @@ ON DUPLICATE KEY UPDATE
 
 **Rationale:**
 - Modern features improve code quality and readability
-- Show current PHP knowledge while respecting ecosystem realities
+- PHP 8.4 is the current stable release with long-term support
 
 ---
 
@@ -239,5 +239,4 @@ The goal is a system that's simple enough to reason about, robust enough to hand
 
 **Why `DataImporter`, not `ItemImporter`?**
 
-The service coordinates a generic import pipeline (Reader → Mapper → Validator → Repository). Today those collaborators handle `Item` entities, but nothing in `DataImporter` ties it to that concept. Keeping the name generic matches the architecture doc and leaves room for plugging in a different mapper/validator pair (for example, importing availability feeds) without renaming the orchestration layer.
-
+The service coordinates a generic import pipeline (Reader → Mapper → Validator → Repository). Today those collaborators handle `Item` entities, but nothing in `DataImporter` ties it to that concept. Keeping the name generic matches the architecture and leaves room for plugging in a different mapper/validator pair (for example, importing availability feeds, or importing books) without renaming the orchestration layer.

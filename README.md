@@ -1,33 +1,48 @@
-# Data Feed Importer
+# ImporterKit
 
-A scalable, production-ready CSV data import system built with PHP 8.4, compatible with PHP 8.5.
+[![PHP 8.4](https://img.shields.io/badge/PHP-8.4-blue.svg)](https://php.net)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-![Demo run](docs/screenshot-demo_run.png)
+A starting point for building data import pipelines in PHP 8.4. Designed with clean architecture, extensibility, and production-ready patterns.
 
-## Features
+## Why ImporterKit?
 
-- **Batch Processing** — Memory-efficient handling of large files via configurable batch sizes
-- **GTIN Validation** — Full GTIN-13 checksum verification plus format checks for GTIN-8/12/14
-- **GTIN Lenient Mode** — Optional flag to treat checksum issues as warnings for legacy/demo feeds
-- **Financial Precision** — Prices stored as DECIMAL, normalized in the mapper layer
-- **Idempotent Imports** — Safe to re-run; uses upsert strategy keyed on GTIN
-- **Dry-Run Mode** — Validate data without touching the database
-- **Continue on Error** — One bad row doesn't stop the entire import; errors logged with line numbers
+This project embraces:
+
+- **Clean Architecture** — Reader → Mapper → Validator → Repository pipeline
+- **Modern PHP 8.4** — Readonly classes, enums, match expressions
+- **Production Thinking** — Batch processing, idempotent imports, graceful error handling
+- **Financial Precision** — DECIMAL storage for monetary values
+- **Extensibility** — Generic interfaces allowing CSV/JSON/XML/API sources
 
 ## Quick Start
 
 ```bash
-# Run the test suite
+# Clone and install
+git clone https://github.com/omoustaouda/importerkit.git
+cd importerkit
+
+# Run tests
 make test
 
 # Import a CSV file
 make import FILE=/data/feed.csv
 
 # Or with options
-docker compose run --rm app import:feed /data/feed.csv --batch-size=200 --dry-run --skip-gtin-validation
+docker compose run --rm app import:feed /data/feed.csv --batch-size=200 --dry-run
+```
 
-# Run the sample demo (skips GTIN checksum for provided feed.csv)
+## With Docker
+
+```bash
+# Start services
+make docker-up
+
+# Run demo import (uses lenient GTIN mode for sample data)
 make demo
+
+# Open a shell in the container
+make shell
 ```
 
 ## CLI Usage
@@ -54,6 +69,31 @@ Options:
 | 1 | Partial failure — some records skipped due to validation errors |
 | 2 | Failed — no records imported or file not found |
 
+## Architecture
+
+```
+CSV/JSON/API → DataReader (generic)
+                    ↓ iterable<array>
+               ItemMapper (domain transformation)
+                    ↓ Item entity
+               ItemValidator (business rules)
+                    ↓ Valid Item
+               ItemRepository (persistence)
+                    ↓ MySQL
+```
+
+### Key Design Decisions
+
+| Decision | Rationale |
+|----------|-----------|
+| **Separate Reader/Mapper/Validator** | Single responsibility, testable units |
+| **DECIMAL for money** | Exact precision, no floating-point errors |
+| **VARCHAR for GTIN** | Preserves leading zeros |
+| **Batch upserts** | Memory efficient, idempotent |
+| **Continue on errors** | Resilient imports, detailed logging |
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed documentation.
+
 ## CSV Format
 
 The importer expects a CSV with the following columns:
@@ -73,37 +113,73 @@ gtin,language,title,picture,description,price,stock
 | price | decimal | Positive number, normalized to 2 decimal places |
 | stock | integer | Non-negative |
 
-## Architecture
+## Extending ImporterKit
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed design decisions.
+### Add a New Data Source
 
-### Data Flow
+1. Implement `DataReaderInterface`:
 
+```php
+class JsonDataReader implements DataReaderInterface
+{
+    public function read(): iterable
+    {
+        $data = json_decode(file_get_contents($this->path), true);
+        foreach ($data as $index => $row) {
+            yield $index => $row;
+        }
+    }
+}
 ```
-CSV File → CsvDataReader → ItemMapper → ItemValidator → ItemRepository → MySQL
-              (generic)      (domain)      (rules)        (persistence)
+
+2. Register in your service configuration
+3. Use the same Mapper → Validator → Repository pipeline
+
+### Add Custom Validation Rules
+
+Extend `ItemValidator` or create domain-specific validators:
+
+```php
+class CustomItemValidator extends ItemValidator
+{
+    protected function validateCustomRule(Item $item): ?ValidationError
+    {
+        // Your business logic
+    }
+}
 ```
 
-### Key Design Decisions
-
-1. **league/csv for parsing** — Handles encoding, BOM, edge cases we'd have to solve ourselves
-2. **Separation of concerns** — Reader (generic) → Mapper (domain) → Validator (rules)
-3. **DECIMAL for money** — Float has precision issues; DECIMAL stores exact values
-4. **Idempotent upserts** — INSERT ... ON DUPLICATE KEY UPDATE by GTIN
-5. **Batch transactions** — Consistency without memory overhead
-6. **Continue on errors** — Log and skip invalid rows, report at the end
-
-## Development
+## Testing
 
 ```bash
-# Open a shell in the app container
-make shell
+# Run all tests
+make test
 
-# Start MySQL (if not already running)
-make docker-up
+# Run unit tests only
+docker compose run --rm --entrypoint vendor/bin/phpunit app --testsuite=unit
 
-# Stop all services
-make docker-down
+# Run integration tests only
+docker compose run --rm test --testsuite=integration
+```
+
+## Project Structure
+
+```
+src/
+├── Command/           # CLI commands
+├── DataReader/        # Data source abstractions
+├── Mapper/            # Array → Entity transformation
+├── Domain/            # Entities and validators
+├── Repository/        # Database persistence
+├── Service/           # Orchestration
+├── Enum/              # Type-safe constants
+├── DTO/               # Data transfer objects
+└── Exception/         # Domain exceptions
+
+tests/
+├── Unit/              # Isolated component tests
+├── Integration/       # Database tests
+└── Fixtures/          # Test data files
 ```
 
 ## Requirements
