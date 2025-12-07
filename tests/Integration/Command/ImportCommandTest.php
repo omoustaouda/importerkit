@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Integration\Command;
+namespace ImporterKit\Tests\Integration\Command;
 
-use DataFeedImporter\Command\ImportCommand;
-use DataFeedImporter\DataReader\CsvDataReader;
-use DataFeedImporter\Domain\ItemValidator;
-use DataFeedImporter\Mapper\ItemMapper;
-use DataFeedImporter\Repository\ItemRepository;
-use DataFeedImporter\Service\DataImporter;
-use DataFeedImporter\Tests\Integration\DatabaseTestCase;
+use ImporterKit\Command\ImportCommand;
+use ImporterKit\DataReader\CsvDataReader;
+use ImporterKit\Domain\ItemValidator;
+use ImporterKit\Mapper\ItemMapper;
+use ImporterKit\Repository\ItemRepository;
+use ImporterKit\Service\DataImporter;
+use ImporterKit\Tests\Integration\DatabaseTestCase;
 use Psr\Log\NullLogger;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;

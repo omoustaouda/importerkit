@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Domain;
+namespace ImporterKit\Domain;
 
 final readonly class Item
 {

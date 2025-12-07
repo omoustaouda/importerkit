@@ -2,7 +2,7 @@
 
 # Default target
 help:
-	@echo "Data Feed Importer - Available commands:"
+	@echo "ImporterKit - Available commands:"
 	@echo ""
 	@echo "  make composer-install - Install/update dependencies inside Docker"
 	@echo "  make docker-up        - Start services"

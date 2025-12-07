@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Unit\Domain;
+namespace ImporterKit\Tests\Unit\Domain;
 
-use DataFeedImporter\Domain\Item;
-use DataFeedImporter\Domain\ItemValidator;
-use DataFeedImporter\Enum\ValidationError;
+use ImporterKit\Domain\Item;
+use ImporterKit\Domain\ItemValidator;
+use ImporterKit\Enum\ValidationError;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

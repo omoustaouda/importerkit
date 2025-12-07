@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Integration\Database;
+namespace ImporterKit\Tests\Integration\Database;
 
-use DataFeedImporter\Tests\Integration\DatabaseTestCase;
+use ImporterKit\Tests\Integration\DatabaseTestCase;
 
 final class DatabaseSetupTest extends DatabaseTestCase
 {

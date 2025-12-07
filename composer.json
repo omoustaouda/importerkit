@@ -1,8 +1,23 @@
 {
-    "name": "omoustaouda/data-feed-importer",
-    "description": "Scalable CSV data feed importer for PHP 8.4",
+    "name": "omoustaouda/importerkit",
+    "description": "A starting point for building data import pipelines in PHP 8.4",
     "type": "project",
     "license": "MIT",
+    "keywords": [
+        "php",
+        "pipeline",
+        "data-import",
+        "csv",
+        "etl",
+        "skeleton",
+        "starter"
+    ],
+    "authors": [
+        {
+            "name": "Othmane Moustaouda",
+            "email": "license@othmanemoustaouda.io"
+        }
+    ],
     "require": {
         "php": "^8.4",
         "ext-pdo": "*",
@@ -16,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "DataFeedImporter\\": "src/"
+            "ImporterKit\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DataFeedImporter\\Tests\\": "tests/"
+            "ImporterKit\\Tests\\": "tests/"
         }
     },
     "scripts": {

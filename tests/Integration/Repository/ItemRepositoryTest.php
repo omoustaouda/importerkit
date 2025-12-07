@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Integration\Repository;
+namespace ImporterKit\Tests\Integration\Repository;
 
-use DataFeedImporter\Domain\Item;
-use DataFeedImporter\Repository\ItemRepository;
-use DataFeedImporter\Tests\Integration\DatabaseTestCase;
+use ImporterKit\Domain\Item;
+use ImporterKit\Repository\ItemRepository;
+use ImporterKit\Tests\Integration\DatabaseTestCase;
 use Doctrine\DBAL\Connection;
 
 final class ItemRepositoryTest extends DatabaseTestCase

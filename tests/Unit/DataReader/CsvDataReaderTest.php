@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Unit\DataReader;
+namespace ImporterKit\Tests\Unit\DataReader;
 
-use DataFeedImporter\DataReader\CsvDataReader;
-use DataFeedImporter\Exception\DataReaderException;
+use ImporterKit\DataReader\CsvDataReader;
+use ImporterKit\Exception\DataReaderException;
 use PHPUnit\Framework\TestCase;
 
 final class CsvDataReaderTest extends TestCase

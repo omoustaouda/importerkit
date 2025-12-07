@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Unit\DTO;
+namespace ImporterKit\Tests\Unit\DTO;
 
-use DataFeedImporter\DTO\ImportOptions;
+use ImporterKit\DTO\ImportOptions;
 use PHPUnit\Framework\TestCase;
 
 final class ImportOptionsTest extends TestCase

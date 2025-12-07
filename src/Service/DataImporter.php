@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Service;
+namespace ImporterKit\Service;
 
-use DataFeedImporter\DataReader\DataReaderInterface;
-use DataFeedImporter\Domain\Item;
-use DataFeedImporter\Domain\ItemValidator;
-use DataFeedImporter\DTO\ImportOptions;
-use DataFeedImporter\DTO\ImportResult;
-use DataFeedImporter\Enum\ImportStatus;
-use DataFeedImporter\Enum\ValidationError;
-use DataFeedImporter\Exception\MappingException;
-use DataFeedImporter\Mapper\ItemMapper;
-use DataFeedImporter\Repository\ItemRepository;
+use ImporterKit\DataReader\DataReaderInterface;
+use ImporterKit\Domain\Item;
+use ImporterKit\Domain\ItemValidator;
+use ImporterKit\DTO\ImportOptions;
+use ImporterKit\DTO\ImportResult;
+use ImporterKit\Enum\ImportStatus;
+use ImporterKit\Enum\ValidationError;
+use ImporterKit\Exception\MappingException;
+use ImporterKit\Mapper\ItemMapper;
+use ImporterKit\Repository\ItemRepository;
 use Psr\Log\LoggerInterface;
 
 /**

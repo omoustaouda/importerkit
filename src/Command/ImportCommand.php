@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Command;
+namespace ImporterKit\Command;
 
-use DataFeedImporter\DataReader\CsvDataReader;
-use DataFeedImporter\DTO\ImportOptions;
-use DataFeedImporter\Enum\ImportStatus;
-use DataFeedImporter\Service\DataImporter;
+use ImporterKit\DataReader\CsvDataReader;
+use ImporterKit\DTO\ImportOptions;
+use ImporterKit\Enum\ImportStatus;
+use ImporterKit\Service\DataImporter;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -77,7 +77,7 @@ final class ImportCommand extends Command
         $dryRun = (bool) $input->getOption('dry-run');
         $skipGtinValidation = (bool) $input->getOption('skip-gtin-validation');
 
-        $io->title('Data Feed Importer');
+        $io->title('ImporterKit');
         $io->text([
             sprintf('File: %s', $filePath),
             sprintf('Batch size: %d', $batchSize),

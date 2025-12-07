@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Integration\Service;
+namespace ImporterKit\Tests\Integration\Service;
 
-use DataFeedImporter\DataReader\CsvDataReader;
-use DataFeedImporter\Domain\ItemValidator;
-use DataFeedImporter\DTO\ImportOptions;
-use DataFeedImporter\Enum\ImportStatus;
-use DataFeedImporter\Mapper\ItemMapper;
-use DataFeedImporter\Repository\ItemRepository;
-use DataFeedImporter\Service\DataImporter;
-use DataFeedImporter\Tests\Integration\DatabaseTestCase;
+use ImporterKit\DataReader\CsvDataReader;
+use ImporterKit\Domain\ItemValidator;
+use ImporterKit\DTO\ImportOptions;
+use ImporterKit\Enum\ImportStatus;
+use ImporterKit\Mapper\ItemMapper;
+use ImporterKit\Repository\ItemRepository;
+use ImporterKit\Service\DataImporter;
+use ImporterKit\Tests\Integration\DatabaseTestCase;
 use Monolog\Handler\TestHandler;
 use Monolog\Level;
 use Monolog\Logger;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Domain;
+namespace ImporterKit\Domain;
 
-use DataFeedImporter\Enum\ValidationError;
+use ImporterKit\Enum\ValidationError;
 
 final class ItemValidator
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\DTO;
+namespace ImporterKit\DTO;
 
-use DataFeedImporter\Enum\ImportStatus;
+use ImporterKit\Enum\ImportStatus;
 
 final readonly class ImportResult
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\DataReader;
+namespace ImporterKit\DataReader;
 
-use DataFeedImporter\Exception\DataReaderException;
+use ImporterKit\Exception\DataReaderException;
 
 /**
  * Generic interface for reading data from various sources.

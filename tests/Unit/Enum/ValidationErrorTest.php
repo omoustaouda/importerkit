@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Unit\Enum;
+namespace ImporterKit\Tests\Unit\Enum;
 
-use DataFeedImporter\Enum\ValidationError;
+use ImporterKit\Enum\ValidationError;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Unit\Domain;
+namespace ImporterKit\Tests\Unit\Domain;
 
-use DataFeedImporter\Domain\Item;
+use ImporterKit\Domain\Item;
 use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase

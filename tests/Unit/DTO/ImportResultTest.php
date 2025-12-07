@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Unit\DTO;
+namespace ImporterKit\Tests\Unit\DTO;
 
-use DataFeedImporter\DTO\ImportResult;
-use DataFeedImporter\Enum\ImportStatus;
+use ImporterKit\DTO\ImportResult;
+use ImporterKit\Enum\ImportStatus;
 use PHPUnit\Framework\TestCase;
 
 final class ImportResultTest extends TestCase

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Mapper;
+namespace ImporterKit\Mapper;
 
-use DataFeedImporter\Domain\Item;
-use DataFeedImporter\Exception\MappingException;
+use ImporterKit\Domain\Item;
+use ImporterKit\Exception\MappingException;
 
 /**
  * Maps raw arrays from the DataReader layer into Item domain objects.

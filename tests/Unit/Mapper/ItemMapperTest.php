@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Unit\Mapper;
+namespace ImporterKit\Tests\Unit\Mapper;
 
-use DataFeedImporter\Domain\Item;
-use DataFeedImporter\Exception\MappingException;
-use DataFeedImporter\Mapper\ItemMapper;
+use ImporterKit\Domain\Item;
+use ImporterKit\Exception\MappingException;
+use ImporterKit\Mapper\ItemMapper;
 use PHPUnit\Framework\TestCase;
 
 final class ItemMapperTest extends TestCase

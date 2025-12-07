@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Unit\Domain;
+namespace ImporterKit\Tests\Unit\Domain;
 
-use DataFeedImporter\Domain\ValidationResult;
-use DataFeedImporter\Enum\ValidationError;
+use ImporterKit\Domain\ValidationResult;
+use ImporterKit\Enum\ValidationError;
 use PHPUnit\Framework\TestCase;
 
 final class ValidationResultTest extends TestCase

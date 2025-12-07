@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    image: data-feed-importer-php
+    image: importerkit-php
     working_dir: /app
     volumes:
       - .:/app
@@ -37,7 +37,7 @@ services:
 
   test:
     build: .
-    image: data-feed-importer-php
+    image: importerkit-php
     working_dir: /app
     volumes:
       - .:/app
@@ -72,7 +72,7 @@ services:
   # Demo service: runs a sample import to show the tool in action (GTIN lenient mode)
   demo:
     build: .
-    image: data-feed-importer-php
+    image: importerkit-php
     working_dir: /app
     volumes:
       - .:/app

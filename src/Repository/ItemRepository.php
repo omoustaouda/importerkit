@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Repository;
+namespace ImporterKit\Repository;
 
-use DataFeedImporter\Domain\Item;
-use DataFeedImporter\Exception\RepositoryException;
+use ImporterKit\Domain\Item;
+use ImporterKit\Exception\RepositoryException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 

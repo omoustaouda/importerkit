@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Tests\Integration;
+namespace ImporterKit\Tests\Integration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;

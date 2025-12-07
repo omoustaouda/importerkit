@@ -9,11 +9,11 @@ declare(strict_types=1);
  * Keep it simple: one entry per service, clear dependencies.
  */
 
-use DataFeedImporter\Command\ImportCommand;
-use DataFeedImporter\Domain\ItemValidator;
-use DataFeedImporter\Mapper\ItemMapper;
-use DataFeedImporter\Repository\ItemRepository;
-use DataFeedImporter\Service\DataImporter;
+use ImporterKit\Command\ImportCommand;
+use ImporterKit\Domain\ItemValidator;
+use ImporterKit\Mapper\ItemMapper;
+use ImporterKit\Repository\ItemRepository;
+use ImporterKit\Service\DataImporter;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Monolog\Handler\StreamHandler;
@@ -40,7 +40,7 @@ return [
 
     // Logger
     LoggerInterface::class => factory(function () {
-        $logger = new Logger('data-feed-importer');
+        $logger = new Logger('importerkit');
 
         $logLevel = match ($_ENV['LOG_LEVEL'] ?? 'info') {
             'debug' => Level::Debug,

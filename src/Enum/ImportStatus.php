@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DataFeedImporter\Enum;
+namespace ImporterKit\Enum;
 
 enum ImportStatus: string
 {

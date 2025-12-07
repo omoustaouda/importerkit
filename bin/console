@@ -4,13 +4,13 @@
 declare(strict_types=1);
 
 /**
- * Data Feed Importer CLI Entry Point
+ * ImporterKit CLI Entry Point
  *
  * This is the main entry point for the CLI application.
  * Dependencies are wired via PHP-DI container.
  */
 
-use DataFeedImporter\Command\ImportCommand;
+use ImporterKit\Command\ImportCommand;
 use DI\ContainerBuilder;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Dotenv\Dotenv;
@@ -29,7 +29,7 @@ $containerBuilder->addDefinitions(__DIR__ . '/../config/services.php');
 $container = $containerBuilder->build();
 
 // Create and run application
-$application = new Application('Data Feed Importer', '1.0.0');
+$application = new Application('ImporterKit', '1.0.0');
 
 $application->addCommand($container->get(ImportCommand::class));
 
