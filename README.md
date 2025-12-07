@@ -5,7 +5,7 @@
 
 A starting point for building data import pipelines in PHP 8.4. Designed with clean architecture, extensibility, and production-ready patterns.
 
-## Why ImporterKit?
+## ✦ Why ImporterKit?
 
 This project embraces:
 
@@ -15,7 +15,7 @@ This project embraces:
 - **Financial Precision** — DECIMAL storage for monetary values
 - **Extensibility** — Generic interfaces allowing CSV/JSON/XML/API sources
 
-## Quick Start
+## ⚡ Quick Start
 
 ```bash
 # Clone and install
@@ -32,7 +32,7 @@ make import FILE=/data/sample-feed.csv
 docker compose run --rm app import:feed /data/sample-feed.csv --batch-size=200 --dry-run
 ```
 
-## With Docker
+## 🐳 With Docker
 
 ```bash
 # Start services
@@ -45,7 +45,7 @@ make demo
 make shell
 ```
 
-## CLI Usage
+## 📋 CLI Usage
 
 ```
 bin/console import:feed <file> [options]
@@ -61,7 +61,7 @@ Options:
   -v                    Verbose output (shows validation errors)
 ```
 
-## Exit Codes
+### Exit Codes
 
 | Code | Meaning |
 |------|---------|
@@ -69,7 +69,7 @@ Options:
 | 1 | Partial failure — some records skipped due to validation errors |
 | 2 | Failed — no records imported or file not found |
 
-## Architecture
+## 🏗 Architecture
 
 ```
 CSV/JSON/API → DataReader (generic)
@@ -94,7 +94,7 @@ CSV/JSON/API → DataReader (generic)
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed documentation.
 
-## CSV Format
+## 📄 CSV Format
 
 The importer expects a CSV with the following columns:
 
@@ -113,7 +113,7 @@ gtin,language,title,picture,description,price,stock
 | price | decimal | Positive number, normalized to 2 decimal places |
 | stock | integer | Non-negative |
 
-## Extending ImporterKit
+## 🔧 Extending ImporterKit
 
 ### Add a New Data Source
 
@@ -149,7 +149,7 @@ class CustomItemValidator extends ItemValidator
 }
 ```
 
-## Testing
+## ▶️ Testing
 
 ```bash
 # Run all tests
@@ -162,7 +162,7 @@ docker compose run --rm --entrypoint vendor/bin/phpunit app --testsuite=unit
 docker compose run --rm test --testsuite=integration
 ```
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 src/
@@ -182,12 +182,12 @@ tests/
 └── Fixtures/          # Test data files
 ```
 
-## Requirements
+## 📦 Requirements
 
 - Docker and Docker Compose
 - No local PHP installation needed — everything runs in containers
 
-## Troubleshooting
+## 🔎 Troubleshooting
 
 ### MySQL "Access denied" error
 
