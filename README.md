@@ -6,6 +6,8 @@
 
 A starting point for building data import pipelines in PHP 8.4. Designed with clean architecture, extensibility, and production-ready patterns.
 
+![Demo run](docs/screenshot-demo_run.png)
+
 ## ✦ Why ImporterKit?
 
 This project embraces:
@@ -72,15 +74,36 @@ Options:
 
 ## 🏗 Architecture
 
+### Data Flow
+
 ```
-CSV/JSON/API → DataReader (generic)
-                    ↓ iterable<array>
-               ItemMapper (domain transformation)
-                    ↓ Item entity
-               ItemValidator (business rules)
-                    ↓ Valid Item
-               ItemRepository (persistence)
-                    ↓ MySQL
+┌─────────────────┐
+│   CSV File      │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  CsvDataReader  │  ← Wraps league/csv, returns raw arrays
+│  (generic)      │    No knowledge of Item/columns
+└────────┬────────┘
+         │ iterable<array<string, string>>
+         ▼
+┌─────────────────┐
+│   ItemMapper    │  ← Transforms array → Item
+│  (domain-aware) │    Owns REQUIRED_COLUMNS, trimming, normalization
+└────────┬────────┘
+         │ Item
+         ▼
+┌─────────────────┐
+│  ItemValidator  │  ← ALL validation: GTIN checksum, price, stock, URL
+│  (domain rules) │    Returns ValidationResult
+└────────┬────────┘
+         │ Valid Item
+         ▼
+┌─────────────────┐
+│ ItemRepository  │  ← Upsert to database
+│  (persistence)  │    DECIMAL handling for price
+└─────────────────┘
 ```
 
 ### Key Design Decisions
