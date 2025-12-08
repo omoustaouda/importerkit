@@ -10,39 +10,34 @@ A starting point for building data import pipelines in PHP 8.4. Designed with cl
 
 ## ✦ Why ImporterKit?
 
+ImporterKit is a working building block meant to be forked and adapted for your own data import pipelines. Clone it, rename the entities, and you have a production-ready foundation.
+
 This project embraces:
 
 - **Clean Architecture** — Reader → Mapper → Validator → Repository pipeline
+- **Extensibility** — Generic interfaces allowing CSV/JSON/XML/API sources
 - **Modern PHP 8.4** — Readonly classes, enums, match expressions
 - **Production Thinking** — Batch processing, idempotent imports, graceful error handling
 - **Financial Precision** — DECIMAL storage for monetary values
-- **Extensibility** — Generic interfaces allowing CSV/JSON/XML/API sources
 
-## ⚡ Quick Start
+## ⚡ Quick Start (using Docker)
 
 ```bash
-# Clone and install
+# Clone
 git clone https://github.com/omoustaouda/importerkit.git
 cd importerkit
 
 # Run tests
 make test
 
-# Import a CSV file
+# Run demo import
+make demo
+
+# Import a sepcific CSV file
 make import FILE=/data/sample-feed.csv
 
 # Or with options
 docker compose run --rm app import:feed /data/sample-feed.csv --batch-size=200 --dry-run
-```
-
-## 🐳 With Docker
-
-```bash
-# Start services
-make docker-up
-
-# Run demo import (uses lenient GTIN mode for sample data)
-make demo
 
 # Open a shell in the container
 make shell
@@ -72,7 +67,7 @@ Options:
 | 1 | Partial failure — some records skipped due to validation errors |
 | 2 | Failed — no records imported or file not found |
 
-## 🏗 Architecture
+## ⏹️ Architecture
 
 ### Data Flow
 
