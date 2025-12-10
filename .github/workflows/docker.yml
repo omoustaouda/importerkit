@@ -6,12 +6,14 @@ on:
       - 'Dockerfile'
       - '.dockerignore'
       - 'compose.yml'
+      - '.github/workflows/docker.yml'
     branches: [main]
   pull_request:
     paths:
       - 'Dockerfile'
       - '.dockerignore'
       - 'compose.yml'
+      - '.github/workflows/docker.yml'
 
 jobs:
   build-and-test:
@@ -19,23 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create .env file
-        run: cp .env.example .env
-
-      - name: Build images
-        run: docker compose build
-
-      - name: Start services
-        run: docker compose up -d mysql
-
-      - name: Wait for MySQL
-        run: |
-          timeout 60 bash -c 'until docker compose exec -T mysql mysqladmin ping -h localhost --silent; do sleep 2; done'
-
-      - name: Run tests via compose
-        run: docker compose run --rm test
+      - name: Run tests via Makefile
+        run: make test
 
       - name: Cleanup
         if: always()
-        run: docker compose down -v
+        run: make docker-down
 
