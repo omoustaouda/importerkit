@@ -1,0 +1,36 @@
+# Environment and secrets
+.env
+.env.*
+.env.local
+.env.*.local
+
+# Version control
+.git
+.gitignore
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Documentation
+*.md
+docs/
+
+# Data and volumes
+data/
+mysql_data/
+
+# Dependencies (will be installed in container)
+vendor/
+
+# Test artifacts
+.phpunit.result.cache
+coverage/
+
+# Docker files (not needed inside container)
+Dockerfile
+compose.yml
+docker-compose*.yml
+
