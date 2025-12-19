@@ -7,6 +7,7 @@ on:
       - '.dockerignore'
       - 'compose.yml'
       - '.github/workflows/docker.yml'
+      - 'Makefile'
     branches: [main]
   pull_request:
     paths:
@@ -14,6 +15,7 @@ on:
       - '.dockerignore'
       - 'compose.yml'
       - '.github/workflows/docker.yml'
+      - 'Makefile'
 
 jobs:
   build-and-test:
